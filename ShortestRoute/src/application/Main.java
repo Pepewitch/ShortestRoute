@@ -13,7 +13,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			MapView map = new MapView(new Map(100,100));
+			MapView map = new MapView(new Map(10,10));
 			BorderPane root = new BorderPane(map);
 			root.setMaxHeight(400);
 			root.setMaxWidth(400);

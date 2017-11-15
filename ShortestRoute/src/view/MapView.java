@@ -12,6 +12,8 @@ import model.NumberNode;
 
 public class MapView extends BorderPane{
 	public static int size = 30;
+	private double x_view;
+	private double y_view;
 	public MapView(Map map) {
 		super();
 		this.setMinHeight((double)size*2 + 2*map.index.size()*size);
@@ -53,9 +55,14 @@ public class MapView extends BorderPane{
 				}
 			}
 		}
-	}
-	public void redraw() {
 		
+		
+		setOnMouseDragged(event -> {
+		    setManaged(false);
+		    this.setTranslateX(event.getX() + this.getTranslateX());
+		    this.setTranslateY(event.getY() + this.getTranslateY());
+		    event.consume();
+		});
 	}
 	
 }
