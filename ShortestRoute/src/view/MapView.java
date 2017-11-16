@@ -2,6 +2,7 @@ package view;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -41,7 +42,7 @@ public class MapView extends BorderPane{
 				hex.setRow(i);
 				hex.setCol(j);
 				hex.setNode(map.getNode(i, j));
-				this.getChildren().add(hex);
+				hex.setBlendMode(BlendMode.MULTIPLY);
 				if(map.index.get(i).get(j) instanceof NumberNode) {
 					Text txt = new Text(""+((NumberNode)map.index.get(i).get(j)).getNumber());
 					txt.setX((i%2 == 0?size:size+(Math.sqrt(3)/2)*size)+j*(Math.sqrt(3))*size + (Math.sqrt(3))*size/2 - txt.getLayoutBounds().getWidth()/2);
@@ -49,6 +50,7 @@ public class MapView extends BorderPane{
 					txt.setFont(Font.font ("Verdana", 20));
 					this.getChildren().add(txt);
 				}
+				this.getChildren().add(hex);
 			}
 		}
 		

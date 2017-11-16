@@ -2,7 +2,7 @@ package model;
 
 public class Game {
 	private Map map;
-	private Player cha;
+	private Player player;
 	private int turn;
 	public Map getMap() {
 		return map;
@@ -10,12 +10,7 @@ public class Game {
 	public void setMap(Map map) {
 		this.map = map;
 	}
-	public Player getCha() {
-		return cha;
-	}
-	public void setCha(Player cha) {
-		this.cha = cha;
-	}
+	
 	public int getTurn() {
 		return turn;
 	}
@@ -24,8 +19,14 @@ public class Game {
 	}
 	public Game(Map map , Player cha) {
 		this.map = map;
-		this.cha = cha;
+		this.player = cha;
 		this.turn = 1;
+	}
+	public Player getPlayer() {
+		return player;
+	}
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
 	

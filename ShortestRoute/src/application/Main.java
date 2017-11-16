@@ -15,7 +15,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			MapView map = new MapView(new Game(new Map(10,10) , new Player(10,0,0)));
+			MapView map = new MapView(new Game(new Map(40,40) , new Player(10,0,0)));
 			BorderPane root = new BorderPane(map);
 //			root.setMaxHeight(400);
 //			root.setMaxWidth(400);
