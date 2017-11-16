@@ -2,6 +2,7 @@ package view;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
@@ -14,6 +15,8 @@ public class MapView extends BorderPane{
 	public static int size = 30;
 	private double x_view;
 	private double y_view;
+	double orgSceneX, orgSceneY; //Current Screen Location, assign in every MousePress
+    double orgTranslateX, orgTranslateY; //Translate Location Variable
 	public MapView(Map map) {
 		super();
 		this.setMinHeight((double)size*2 + 2*map.index.size()*size);
@@ -57,11 +60,29 @@ public class MapView extends BorderPane{
 		}
 		
 		
-		setOnMouseDragged(event -> {
-		    setManaged(false);
-		    this.setTranslateX(event.getX() + this.getTranslateX());
-		    this.setTranslateY(event.getY() + this.getTranslateY());
-		    event.consume();
+		//Store the location variable every MousePress, Change Location when Drag Mouse on MapView
+		setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+	        public void handle(MouseEvent t) {
+	            orgSceneX = t.getSceneX();
+	            orgSceneY = t.getSceneY();
+	            orgTranslateX = ((MapView)(t.getSource())).getTranslateX();
+	            orgTranslateY = ((MapView)(t.getSource())).getTranslateY();
+	        }
+		});
+		
+		setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+	        public void handle(MouseEvent t) {
+				double offsetX = t.getSceneX() - orgSceneX;
+	            double offsetY = t.getSceneY() - orgSceneY;
+	            double newTranslateX = orgTranslateX + offsetX;
+	            double newTranslateY = orgTranslateY + offsetY;
+	             
+	            ((MapView)(t.getSource())).setTranslateX(newTranslateX);
+	            ((MapView)(t.getSource())).setTranslateY(newTranslateY);
+	        }
+			
 		});
 	}
 	
