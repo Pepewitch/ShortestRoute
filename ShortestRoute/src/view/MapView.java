@@ -8,17 +8,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.Game;
 import model.Map;
 import model.NumberNode;
 
 public class MapView extends BorderPane{
 	public static int size = 30;
-	private double x_view;
-	private double y_view;
-	double orgSceneX, orgSceneY; //Current Screen Location, assign in every MousePress
-    double orgTranslateX, orgTranslateY; //Translate Location Variable
-	public MapView(Map map) {
+	private double orgSceneX, orgSceneY; //Current Screen Location, assign in every MousePress
+    private double orgTranslateX, orgTranslateY; //Translate Location Variable
+    private Game game;
+    private Map map;
+	public MapView(Game game) {
 		super();
+		this.game = game;
+		this.map = game.getMap();
 		this.setMinHeight((double)size*2 + 2*map.index.size()*size);
 		this.setMinWidth((double)size*2 + 2*map.index.get(0).size()*size);
 		this.setMaxHeight((double)size*2 + 2*map.index.size()*size);
@@ -26,7 +29,7 @@ public class MapView extends BorderPane{
 		for(int i = 0 ; i < map.index.size() ; i++) {
 			for(int j = 0 ; j < map.index.get(i).size() ; j++) {
 				System.out.println("i = " + i + "  " + "j = " + j);
-				Polyline hex = new Polyline(
+				NodeView hex = new NodeView(
 					(i%2 == 0?size:size+(Math.sqrt(3)/2)*size)+j*(Math.sqrt(3))*size , size + 3*i*size/2 ,
 					(i%2 == 0?size:size+(Math.sqrt(3)/2)*size)+j*(Math.sqrt(3))*size + (Math.sqrt(3))*size/2 , size/2 + 3*i*size/2 ,
 					(i%2 == 0?size:size+(Math.sqrt(3)/2)*size)+j*(Math.sqrt(3))*size + (Math.sqrt(3))*size , size + 3*i*size/2 ,
@@ -35,19 +38,9 @@ public class MapView extends BorderPane{
 					(i%2 == 0?size:size+(Math.sqrt(3)/2)*size)+j*(Math.sqrt(3))*size , 2*size + 3*i*size/2 ,
 					(i%2 == 0?size:size+(Math.sqrt(3)/2)*size)+j*(Math.sqrt(3))*size , size + 3*i*size/2
 				);
-				hex.setFill(Color.WHEAT);
-				hex.setStroke(Color.BLACK);
-				hex.setStrokeWidth(0.1*size);
-				hex.setOnMouseEntered(new EventHandler<Event>() {
-					public void handle(Event e) {
-						hex.setFill(Color.SKYBLUE);
-					}
-				});
-				hex.setOnMouseExited(new EventHandler<Event>() {
-					public void handle(Event e) {
-						hex.setFill(Color.WHEAT);
-					}
-				});
+				hex.setRow(i);
+				hex.setCol(j);
+				hex.setNode(map.getNode(i, j));
 				this.getChildren().add(hex);
 				if(map.index.get(i).get(j) instanceof NumberNode) {
 					Text txt = new Text(""+((NumberNode)map.index.get(i).get(j)).getNumber());

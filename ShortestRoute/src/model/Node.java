@@ -12,7 +12,7 @@ public abstract class Node {
 		this.y_index = y;
 		this.state = 0;
 	}
-	public abstract void event(Character ch);
+	public abstract void event(Player ch);
 	public int getX_index() {
 		return x_index;
 	}

@@ -12,12 +12,22 @@ public class Map{
 				index.get(i).add(new NumberNode(i,j,10));
 			}
 		}
-		System.out.println("Row = " + index.size() + "  " + "Col = " + index.get(0).size());
+	}
+	public Map(ArrayList<ArrayList<Node>> index) {
+		this.index = index;
 	}
 	public void setNode(int x , int y , Node node) {
 		index.get(x).set(y, node);
 	}
 	public Node getNode(int x , int y) {
 		return index.get(x).get(y);
+	}
+	public Node getStartNode() {
+		for(ArrayList<Node> i : index) {
+			for(Node j : i) {
+				if(j instanceof StartNode) return j;
+			}
+		}
+		return null;
 	}
 }
