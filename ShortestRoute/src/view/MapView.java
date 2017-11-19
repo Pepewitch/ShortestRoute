@@ -43,6 +43,7 @@ public class MapView extends BorderPane{
 				hex.setCol(j);
 				hex.setNode(map.getNode(i, j));
 				hex.setBlendMode(BlendMode.MULTIPLY);
+				//hex.setBlendMode(null);   // ------> to close BlendMode
 				if(map.index.get(i).get(j) instanceof NumberNode) {
 					Text txt = new Text(""+((NumberNode)map.index.get(i).get(j)).getNumber());
 					txt.setX((i%2 == 0?size:size+(Math.sqrt(3)/2)*size)+j*(Math.sqrt(3))*size + (Math.sqrt(3))*size/2 - txt.getLayoutBounds().getWidth()/2);
