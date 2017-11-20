@@ -7,12 +7,14 @@ public abstract class Node {
 	//state 0 is in fog
 	//state 1 is seen
 	//state 2 is user location
+	
+	
 	public Node(int x,int y) {
 		this.x_index = x;
 		this.y_index = y;
 		this.state = 0;
 	}
-	public abstract void event(Player ch);
+	public abstract int event(Player ch);
 	public int getX_index() {
 		return x_index;
 	}
@@ -31,5 +33,4 @@ public abstract class Node {
 	public void setState(int state) {
 		this.state = state;
 	}
-	
 }

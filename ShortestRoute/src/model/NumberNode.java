@@ -6,8 +6,9 @@ public class NumberNode extends Node{
 		super(x,y);
 		this.number = number;
 	}
-	public void event(Player ch) {
+	public int event(Player ch) {
 		ch.decreaseLife(number);
+		return 2;
 	}
 	public int getNumber() {
 		return number;
