@@ -51,7 +51,7 @@ public class HeaderBar extends Canvas {
 		
 		gc.drawImage(image,0, 0, getWidth(), getHeight());
 		
-		new Thread() {
+		Thread updateLife = new Thread() {
 			public void run() {
 				Runnable update = new Runnable() {
 					public void run() {
@@ -71,7 +71,9 @@ public class HeaderBar extends Canvas {
 					}
 				}
 			}
-		}.start();
+		};
+		updateLife.setDaemon(true);
+		updateLife.start();
 	}
 	
 	public void update() {

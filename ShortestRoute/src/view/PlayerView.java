@@ -42,7 +42,7 @@ public class PlayerView extends Polyline{
 		this.currentNode = currentNode;
 	}
 	public void update() {
-		new Thread() {
+		Thread moving = new Thread() {
 			public void run() {
 				movable = false;
 				int frame = 0;
@@ -67,7 +67,8 @@ public class PlayerView extends Polyline{
 				lastNode = currentNode;
 				movable = true;
 			}
-		}.start();
-		
+		};
+		moving.setDaemon(true);
+		moving.start();
 	}
 }
