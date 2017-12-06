@@ -1,6 +1,8 @@
 package view;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -11,6 +13,7 @@ import model.Game;
 import model.Node;
 import model.NumberNode;
 import model.StartNode;
+import window.SceneManager;
 
 public class NodeView extends Polyline{
 	private int row;
@@ -126,9 +129,15 @@ public class NodeView extends Polyline{
 			public void handle(MouseEvent e) {
 				if(e.getButton() == MouseButton.SECONDARY) {
 					if(game.getPlayer().isInRange(node,1) && mapView.playerView.movable) {
-						game.getPlayer().moveTo(row, col);
-						mapView.playerView.setCurrentNode(mapView.nodeViewArray.get(row).get(col));
-						mapView.update();
+						if(game.getPlayer().moveTo(row, col)) {
+							mapView.playerView.setCurrentNode(mapView.nodeViewArray.get(row).get(col));
+							mapView.update();
+							node.event(game.getPlayer());
+							if(game.getPlayer().life<=0) {
+								new Alert(AlertType.ERROR,"Game End").show();
+								SceneManager.gotoMainMenu();
+							}
+						}
 					}
 				}
 			}

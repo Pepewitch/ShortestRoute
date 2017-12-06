@@ -19,9 +19,13 @@ public class Player {
 		life += amount;
 		return life;
 	}
-	public void moveTo(int x, int y) {
-		x_index = x;
-		y_index = y;
+	public boolean moveTo(int x, int y) {
+		if(x != x_index || y != y_index) {
+			x_index = x;
+			y_index = y;
+			return true;
+		}
+		return false;
 	}
 	public boolean isInRange(Node node) {
 		int difX = Math.abs(node.getX_index()-x_index);

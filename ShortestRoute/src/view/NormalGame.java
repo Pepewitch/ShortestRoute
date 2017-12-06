@@ -13,7 +13,7 @@ import model.StartNode;
 public class NormalGame extends VBox{
 	public NormalGame(Stage primaryStage) {
 		super(10);
-		Game game = new Game(new Map(6,6) , new Player(10 , 0 , 0 ));
+		Game game = new Game(new Map(6,6) , new Player(100 , 0 , 0 ));
 		game.getMap().setNode(4, 4, new StartNode(4,4));
 		game.getMap().setNode(2, 2, new EndNode(2,2));
 		game.setStart();

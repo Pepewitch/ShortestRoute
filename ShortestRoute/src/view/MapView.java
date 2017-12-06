@@ -112,6 +112,7 @@ public class MapView extends BorderPane{
 				playerView.setCurrentNode(nodeViewArray.get(game.getPlayer().x_index).get(game.getPlayer().y_index));
 				playerView.update();
 //				Thread.sleep(20);
+				
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
