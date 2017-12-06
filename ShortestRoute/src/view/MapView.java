@@ -3,10 +3,12 @@ package view;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.EndNode;
 import model.Game;
 import model.Map;
 import model.Node;
@@ -26,7 +28,6 @@ public class MapView extends BorderPane{
 		super();
 		this.game = game;
 		this.map = game.getMap();
-		this.map.setNode(4, 4, new StartNode(4,4));
 		this.setMinHeight((double)size*2 + 2*map.index.size()*size);
 		this.setMinWidth((double)size*2 + 2*map.index.get(0).size()*size);
 		this.setMaxHeight((double)size*2 + 2*map.index.size()*size);
@@ -79,13 +80,15 @@ public class MapView extends BorderPane{
 		setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 	        public void handle(MouseEvent t) {
-				double offsetX = t.getSceneX() - orgSceneX;
-	            double offsetY = t.getSceneY() - orgSceneY;
-	            double newTranslateX = orgTranslateX + offsetX;
-	            double newTranslateY = orgTranslateY + offsetY;
-	             
-	            ((MapView)(t.getSource())).setTranslateX(newTranslateX);
-	            ((MapView)(t.getSource())).setTranslateY(newTranslateY);
+				if(t.getButton() == MouseButton.PRIMARY) {
+					double offsetX = t.getSceneX() - orgSceneX;
+		            double offsetY = t.getSceneY() - orgSceneY;
+		            double newTranslateX = orgTranslateX + offsetX;
+		            double newTranslateY = orgTranslateY + offsetY;
+		             
+		            ((MapView)(t.getSource())).setTranslateX(newTranslateX);
+		            ((MapView)(t.getSource())).setTranslateY(newTranslateY);
+				}
 	        }
 		});
 		update();
@@ -101,6 +104,8 @@ public class MapView extends BorderPane{
 						else {
 							i.setState(0);
 						}
+						if(i  instanceof StartNode) i.setState(1);
+						if(i  instanceof EndNode) i.setState(1);
 						nodeViewArray.get(i.getX_index()).get(i.getY_index()).addEvent();
 					}
 				}

@@ -1,8 +1,8 @@
 package view;
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
@@ -33,6 +33,11 @@ public class NodeView extends Polyline{
 	private EventHandler<MouseEvent> startNode_Exit = new EventHandler<MouseEvent>() {
 		public void handle(MouseEvent e) {
 			setFill(Color.AQUAMARINE);
+		}
+	};
+	private EventHandler<MouseEvent> endNode_Exit = new EventHandler<MouseEvent>() {
+		public void handle(MouseEvent e) {
+			setFill(Color.RED);
 		}
 	};
 	private EventHandler<MouseEvent> startNode_Enter = new EventHandler<MouseEvent>() {
@@ -96,10 +101,12 @@ public class NodeView extends Polyline{
 				}
 			}
 			if(node instanceof StartNode || node instanceof EndNode) {
-				this.setFill(Color.AQUAMARINE);
+				if(node instanceof StartNode) this.setFill(Color.AQUAMARINE);
+				if(node instanceof EndNode) this.setFill(Color.RED);
 				if(game.getPlayer().isInRange(this.node,1)) {
-				this.setOnMouseEntered(startNode_Enter);
-				this.setOnMouseExited(startNode_Exit);
+					this.setOnMouseEntered(startNode_Enter);
+					if(node instanceof StartNode)this.setOnMouseExited(startNode_Exit);
+					if(node instanceof EndNode)this.setOnMouseExited(endNode_Exit);
 				}
 				else {
 					this.setOnMouseEntered(null);
@@ -115,12 +122,14 @@ public class NodeView extends Polyline{
 		}
 		
 			
-		this.setOnMouseClicked(new EventHandler<Event>() {
-			public void handle(Event e) {
-				if(game.getPlayer().isInRange(node,1)) {
-					game.getPlayer().moveTo(row, col);
-					mapView.playerView.setCurrentNode(mapView.nodeViewArray.get(row).get(col));
-					mapView.update();
+		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				if(e.getButton() == MouseButton.SECONDARY) {
+					if(game.getPlayer().isInRange(node,1) && mapView.playerView.movable) {
+						game.getPlayer().moveTo(row, col);
+						mapView.playerView.setCurrentNode(mapView.nodeViewArray.get(row).get(col));
+						mapView.update();
+					}
 				}
 			}
 		});

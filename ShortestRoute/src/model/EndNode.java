@@ -7,5 +7,4 @@ public class EndNode extends Node {
 	public int event(Player cha) {
 		return 0;
 	}
-
 }

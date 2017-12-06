@@ -7,7 +7,7 @@ public class Player {
 	public int y_index;
 	public Player(int life,int x ,int y) {
 		this.life = life;
-		this.range = 3;
+		this.range = 2;
 		this.x_index = x;
 		this.y_index = y;
 	}
