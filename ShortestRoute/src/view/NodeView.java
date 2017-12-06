@@ -13,6 +13,7 @@ import model.Game;
 import model.Node;
 import model.NumberNode;
 import model.StartNode;
+import model.VoidNode;
 import window.SceneManager;
 
 public class NodeView extends Polyline{
@@ -116,6 +117,9 @@ public class NodeView extends Polyline{
 					this.setOnMouseExited(null);
 				}
 			}
+			if(node instanceof VoidNode) {
+				this.setFill(Color.WHITE);
+			}
 		}
 		if(node.getState() == 0) {
 			this.setFill(Color.LIGHTGRAY);
@@ -129,10 +133,10 @@ public class NodeView extends Polyline{
 			public void handle(MouseEvent e) {
 				if(e.getButton() == MouseButton.SECONDARY) {
 					if(game.getPlayer().isInRange(node,1) && mapView.playerView.movable) {
-						if(game.getPlayer().moveTo(row, col)) {
+						if(game.getPlayer().moveTo(row, col) && !(game.getMap().getNode(row, col) instanceof VoidNode)) {
 							mapView.playerView.setCurrentNode(mapView.nodeViewArray.get(row).get(col));
 							mapView.update();
-							node.event(game.getPlayer());
+							if(node.event(game.getPlayer()) == 0) game.end();
 							if(game.getPlayer().life<=0) {
 								new Alert(AlertType.ERROR,"Game End").show();
 								SceneManager.gotoMainMenu();

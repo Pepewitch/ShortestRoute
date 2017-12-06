@@ -5,6 +5,6 @@ public class StartNode extends Node {
 		super(x,y);
 	}
 	public int event(Player cha) {
-		return 2;
+		return 1;
 	}
 }
