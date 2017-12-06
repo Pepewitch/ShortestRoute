@@ -41,4 +41,5 @@ public class NormalGame extends VBox{
 		});
 		this.getChildren().addAll(topBar , frame);
 	}
+	
 }
