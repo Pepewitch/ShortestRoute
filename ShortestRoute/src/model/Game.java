@@ -4,7 +4,9 @@ public class Game {
 	private Map map;
 	private Player player;
 	private int turn;
+	public boolean end;
 	public Game(Map map , Player cha) {
+		end = false;
 		this.map = map;
 		this.player = cha;
 		this.turn = 1;
@@ -33,5 +35,8 @@ public class Game {
 	}
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+	public void end() {
+		end = true;
 	}
 }

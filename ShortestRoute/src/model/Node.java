@@ -4,11 +4,9 @@ public abstract class Node {
 	private int x_index;
 	private int y_index;
 	private int state;
-	//state 0 is in fog
-	//state 1 is seen
-	//state 2 is user location
+	// 0 is fog , 1 is not
 	
-	
+	// event return 0 = end , 1 = start , 2 = number , 3 = void
 	public Node(int x,int y) {
 		this.x_index = x;
 		this.y_index = y;

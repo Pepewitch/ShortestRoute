@@ -7,17 +7,20 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import model.Game;
 import model.Player;
 
 public class HeaderBar extends Canvas {
+	private Game game;
 	private Player player;
 	private Image image;
 	private GraphicsContext gc;
 	private double scaleWidHead;
 	private double scaleHeiHead;
-	public HeaderBar(double width, double height, Player player) {
+	public HeaderBar(double width, double height, Game game) {
 		super(width, height/12);
-		this.player = player;
+		this.game = game;
+		this.player = game.getPlayer();
 		gc = this.getGraphicsContext2D();
 		Font theFont = Font.font("Times New Roman", FontWeight.LIGHT, width*height/30000);
 		gc.setFont(theFont);
@@ -61,7 +64,7 @@ public class HeaderBar extends Canvas {
 						gc.fillText("❤  Life : "+player.life, 10, scaleHeiHead*4/5);
 					}
 				};
-				while(player.life>=0) {
+				while(player.life>=0 && !game.end) {
 					Platform.runLater(update);
 					try {
 						Thread.sleep(30);
