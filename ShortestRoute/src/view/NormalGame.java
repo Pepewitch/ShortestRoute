@@ -21,17 +21,29 @@ public class NormalGame extends VBox{
 		map.update();
 		StatusView status = new StatusView(game.getPlayer());
 		BorderPane frame = new BorderPane(map);
-		Rectangle clip = new Rectangle(primaryStage.getWidth(),primaryStage.getHeight()-status.getHeight());
-		frame.setClip(clip);
+		
+		HeaderBar topBar = new HeaderBar(primaryStage.getWidth(), primaryStage.getHeight(), status);
+		this.getChildren().add(topBar);
+		
+//		Rectangle clip = new Rectangle(primaryStage.getWidth(),primaryStage.getHeight()-status.getHeight());
+//		frame.setClip(topBar);
+		
 		primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
 		     // Do whatever you want
-			clip.setWidth((double)newVal);
-			frame.setClip(clip);
+			this.getChildren().clear();
+			HeaderBar newTopBar = new HeaderBar((double)newVal, primaryStage.getHeight(), status);
+			this.getChildren().add(newTopBar);
+			this.getChildren().addAll(status , frame);
+
+
 		});
 		primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
 		     // Do whatever you want
-			clip.setHeight((double)newVal-status.getHeight());
-			frame.setClip(clip);
+			this.getChildren().clear();
+			HeaderBar newTopBar = new HeaderBar(primaryStage.getWidth(), (double)newVal, status);
+			this.getChildren().add(newTopBar);
+			this.getChildren().addAll(status , frame);
+			
 		});
 		this.getChildren().addAll(status , frame);
 	}

@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -53,6 +54,15 @@ public class MapView extends BorderPane{
 				}
 				hex.setRow(i);
 				hex.setCol(j);
+//<<<<<<< HEAD
+				hex.setNode(map.getNode(i, j));
+				hex.setBlendMode(BlendMode.MULTIPLY);
+				//hex.setBlendMode(null);   // ------> to close BlendMode
+//||||||| merged common ancestors
+				hex.setNode(map.getNode(i, j));
+				hex.setBlendMode(BlendMode.MULTIPLY);
+//=======
+//>>>>>>> 3c72edc75fd5178d9c708a141ea368154c58eb33
 				if(map.index.get(i).get(j) instanceof NumberNode) {
 					Text txt = new Text(""+((NumberNode)map.index.get(i).get(j)).getNumber());
 					txt.setX((i%2 == 0?size:size+(Math.sqrt(3)/2)*size)+j*(Math.sqrt(3))*size + (Math.sqrt(3))*size/2 - txt.getLayoutBounds().getWidth()/2);

@@ -13,6 +13,7 @@ public class StatusView extends HBox{
 		this.player = player;
 		this.life = new Label("Life = " + player.life);
 		this.getChildren().add(life);
+		
 		new Thread() {
 			public void run() {
 				Runnable update = new Runnable() {
@@ -38,5 +39,7 @@ public class StatusView extends HBox{
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	
+	public String getLifeText(){
+		return life.getText();
+	}
 }
