@@ -1,3 +1,4 @@
+const fs = require('fs')
 fs.writeFile("normalgame.json",
 	JSON.stringify(
 		[
