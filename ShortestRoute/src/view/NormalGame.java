@@ -112,6 +112,7 @@ public class NormalGame extends VBox{
 		}
 		return new Game(new Map(allnode),player);
 	}
+
 	
 	private void gameEndHandle() {
 		Thread gameEnd = new Thread() {

@@ -82,6 +82,8 @@ public class HeaderBar extends Canvas {
 	public void update() {
 		scaleWidHead = this.getWidth()/5;
 		scaleHeiHead = this.getHeight();
+		Font theFont = Font.font("Times New Roman", FontWeight.LIGHT, getWidth()*getHeight()/3000);
+		gc.setFont(theFont);
 		//-->Life Point
 		gc.setFill(Color.LIGHTGOLDENRODYELLOW);
 		gc.fillRect(0, 0, scaleWidHead, scaleHeiHead);
